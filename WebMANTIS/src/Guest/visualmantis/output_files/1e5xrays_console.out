@@ -1,0 +1,324 @@
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+Input arguments:
+
+ NUMBER HIST: 100000                                                                                                                                                
+ MIN OPT PHOT: 0                                                                                                                                                     
+ MAX OPT PHOT: 1400                                                                                                                                                  
+ NUMBER BINS: 140                                                                                                                                                   
+ DET X (um): 909.0                                                                                                                                                 
+ DET Y (um): 909.0                                                                                                                                                 
+ DET Z (um): 150.0                                                                                                                                                 
+ RADIUS (um): 5.1                                                                                                                                                   
+ REF INDEX COL: 1.8                                                                                                                                                   
+ REF INDEX IC: 1.0                                                                                                                                                   
+ TOP ABS FRAC: 0.1                                                                                                                                                   
+ BULK ABS COEFF (um^-1): 1e-4                                                                                                                                                  
+ ROUGHNESS COEFF: 0.2                                                                                                                                                   
+ MIN DIST TO NEXT COL (um): 1.0                                                                                                                                                   
+ MAX DIST TO NEXT COL (um): 280.0                                                                                                                                                 
+ PRF LOWERBOUND X (um): 0.0                                                                                                                                                   
+ PRF LOWERBOUND Y (um): 0.0                                                                                                                                                   
+ PRF UPPERBOUND X (um): 909.0                                                                                                                                                 
+ PRF UPPERBOUND Y (um): 909.0                                                                                                                                                 
+ YIELD (/eV): 0.055                                                                                                                                                 
+ PIXEL PITCH (um): 9                                                                                                                                                     
+ NON-IDEAL SENSOR REFL: 0.25                                                                                                                                                  
+ Run on GPU: 1                                                                                                                                                     
+ Machine num: 1                                                                                                                                                     
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+>>>> This is penEasy v.2008-06-15 >>>>
+>>>>   !!NO  EM FIELDS!!  >>>>
+>>>> !Voxel geometry disregarded! >>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
+
+Program timer started on 18 Apr 2012  16:29:41                                                                               
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION CONFIG v.2006-08-01]
+No. of histories requested: 
+ 1.00000E+05
+Allotted time (s):
+ 5.00000E+15
+Update interval:
+ 5.00000E+04
+Random seeds:
+ 3141592 20090625
+>>>> Config initialization finished >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION SOURCE BOX ISOTROPIC GAUSS SPECTRUM v.2006-08-01]
+Particle type:
+ 2
+Reading energy spectrum
+  Energy(eV)  Relat.Probability   Bin#
+  2.50000E+04  1.00000E+00     1
+  2.50000E+04  1.00000E-08     2
+  1.00000E+06 -1.00000E+00     3
+No. of bins read:
+ 2
+Sum of relative probabilities before normalization:
+ 1.00000E+00
+Center coordinates (cm):
+  4.54000E-02  4.54000E-02  1.00000E+00
+Box sides (cm):
+  3.00000E-03  3.00000E-03  0.00000E+00
+Euler angles (deg):
+  0.00000E+00  0.00000E+00  0.00000E+00
+Source material:
+ 0
+Direction vector (u,v,w):
+  0.00000E+00  0.00000E+00 -1.00000E+00
+Aperture (deg) and cos():
+  0.00000E+00  1.00000E+00
+>>>> BIGS source initialization finished >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION SOURCE PHASE SPACE FILE v.2008-06-01]
+>>>> Source Phase Space File is OFF >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION PENGEOM+PENVOX v.2008-06-01]
+ 
+>>>> Initializing quadric geometry >>>>
+Opening quadric geometry file:
+ CsI.geo                       
+Now calling PENGEOM...
+ 
+>>>> PenEasy geometry: CsI rectangle in vacuum >>>>                     
+                                                                        
+                                                                        
+                                                                        
+                      ^                                                 
+                     /|\ z-axis                                         
+                      |                                                 
+             vacuum   |                                                 
+                      |                                                 
+                      |                                                 
+      111111111111111111111111111111111 -> x=T1 cm  Cesium iodide       
+      111111111111111111111111111111111                                 
+      111111111111111111111111111111111---->  x=0 cm                    
+                                                                        
+The actual geometry definition begins here:                             
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   1)   Plane Z = -75 um (-0.0075 cm)                       
+INDICES=( 0, 0, 0, 1, 0)
+Z-SHIFT=(-7.500000000000000E-03,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   2)   Plane Z = 75 um (0.0075 cm)                         
+INDICES=( 0, 0, 0, 1, 0)
+Z-SHIFT=( 7.500000000000000E-03,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   3)   Plane X = 0 cm                                      
+INDICES=( 0, 0, 0, 0, 0)
+     AX=( 1.000000000000000E+00,   0)       
+     A0=( 0.000000000000000E+00,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   4)   Plane X = 909 um (0.0909 cm)                        
+INDICES=( 0, 0, 0, 0, 0)
+     AX=( 9.089999999999999E-02,   0)       
+     A0=(-1.000000000000000E-01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   5)   Plane Y = 0 cm                                      
+INDICES=( 0, 0, 0, 0, 0)
+     AY=( 1.000000000000000E+00,   0)       
+     A0=( 0.000000000000000E+00,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   6)   Plane Y = 909 um (0.0909 cm)                        
+INDICES=( 0, 0, 0, 0, 0)
+     AY=( 9.089999999999999E-02,   0)       
+     A0=(-1.000000000000000E-01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (   1)   CsI detector                                        
+MATERIAL(   1)
+SURFACE (   1), SIDE POINTER=( 1)
+SURFACE (   2), SIDE POINTER=(-1)
+SURFACE (   3), SIDE POINTER=( 1)
+SURFACE (   4), SIDE POINTER=(-1)
+SURFACE (   5), SIDE POINTER=( 1)
+SURFACE (   6), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+END      0000000000000000000000000000000000000000000000000000000
+ 
+>>>> Quadric geometry initialization finished >>>>
+ 
+No voxels file defined, using quadrics only.
+ 
+No. of materials referenced in the geometry:
+ 1
+ 
+>>>> Geometry initialization finished >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION PENELOPE v.2008-02-20]
+ 
+Simulation parameters
+No. materials expected in MAT file (0=auto):
+ 1
+MAT  EABS(e-)   EABS(ph)   EABS(e+)   C1         C2        WCC         WCR        DSMA
+ 1  5.000E+01  5.000E+01  5.000E+01  1.000E-02  1.000E-02  5.000E+01  5.000E+01  2.000E-02
+Opening material data file:
+ CsI.mat                       
+Now calling PEINIT...
+ 
+
+ **********************************
+ **   PENELOPE  (version 2006)   **
+ **********************************
+
+ EMIN = 5.0000E+01 eV,  EMAX = 1.0100E+06 eV
+
+
+ **********************
+ **   1st material   **
+ **********************
+
+ *** Simulation parameters:
+     Electron absorption energy = 5.0000E+01 eV
+       Photon absorption energy = 5.0000E+01 eV
+     Positron absorption energy = 5.0000E+01 eV
+      C1 = 1.0000E-02,       C2 = 1.0000E-02
+     WCC = 5.0000E+01 eV,   WCR = 5.0000E+01 eV
+
+ PENELOPE (v. 2006)  Material data file ...............
+ Material: CESIUM IODIDE  (141)                                          
+ Mass density = 4.51000000E+00 g/cm**3
+ Number of elements in the molecule =  2
+    Element: I  (Z=53), atoms/molecule = 1.00000000E+00
+    Element: Cs (Z=55), atoms/molecule = 1.00000000E+00
+ Mean excitation energy = 5.53100000E+02 eV
+ PENELOPE (v. 2006)  End of material data file ........
+ 
+>>>> PENELOPE initialization finished >>>>
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY VOXEL DOSE v.2008-06-01]
+>>>> Tally Voxel Dose Distribution is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY SPATIAL DOSE DISTRIB v.2006-08-01]
+>>>> Tally Spatial Dose Distrib is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY CYLINDRICAL DOSE DISTRIB v.2006-08-01]
+>>>> Tally Cylindrical Dose Distrib is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY SPHERICAL DOSE DISTRIB v.2006-08-01]
+>>>> Tally Spherical Dose Distrib is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY ENERGY DEPOSITION PULSE SPECTRUM v.2006-08-01]
+>>>> Tally Energy Deposition Pulse Height Spectrum is OFF
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY FLUENCE TRACK LENGTH v.2006-08-01]
+>>>> Tally Fluence Track Length is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY PHASE SPACE FILE v.2008-06-01]
+>>>> Tally Phase Space File is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY PARTICLE CURRENT SPECTRUM v.2006-08-01]
+>>>> Tally Particle Current Spectrum is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY PARTICLE TRACK STRUCTURE v.2008-05-15]
+>>>> Tally Particle Track Structure is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY ENERGY DEPOSITION EVENTS v.2010-06-03]
+ Detector sensitive material number:
+    1
+ EDE output file name:
+ CsI_deposition_events.dat                                                       
+>>>> EDE tally initialization finished >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION INTERACTION FORCING v.2008-05-15]
+>>>> Interaction Forcing is OFF >>>>
+ 
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+init: INITIALIZATION ENDED
+Elapsed real time:     4.07 s
+Elapsed CPU time :     4.03 s
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    LOAD BALANCING STATISTICS
+ 
+GPU time (s)
+         0.21
+CPU time (s)
+         9.00
+PENELOPE speed (hist/sec)
+       794.00
+fastDETECT2 GPU speed (hist/sec)
+      1184.74
+fastDETECT2 CPU speed (hist/sec)
+        28.00
+Load Balancing factor
+         1.00
+Buffer sent to GPU (%)
+      100
+Buffer sent to CPU (%)
+        0
+ 
+>>>>>>>>> EDEreport >>>>>>>>>
+    Number of energy deposition events written to the output file: 46271307
+    Depositions per primary =  4.62713E+02
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    OPTICAL TRANSPORT STATISTICS
+ 
+   !! Simulation in the GPU !!
+ 
+Total # optical photons:
+Generated
+  95222286.00
+Detected
+  51718347.00
+Absorbed at top
+   8184844.00
+Absorbed in bulk
+   3175019.00
+Lost
+  20111907.00
+Out of Column
+     29389.00
+Total GPU or CPU time (s)
+         0.21
+Total optical real time from PENELOPE (s)
+        15.39
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
+ 
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+report: SIMULATION ENDED
+Results have been written to the corresponding DAT files.
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
+Last random seeds:
+ 742389798 914715449
+Elapsed real time (s), excluding init:
+  2.03559E+02
+Elapsed CPU time (s), excluding init:
+  2.02970E+02
+Each report update took (in CPU s):
+  9.99451E-03
+No. of histories simulated:
+            100000.
+CPU Speed (histories/s):
+  4.92708E+02
+CPU Speed without load balancing time (histories/s):
+  5.15570E+02
+
+Program ended on 18 Apr 2012  16:33:09                                                                               
+
+Have a nice day.

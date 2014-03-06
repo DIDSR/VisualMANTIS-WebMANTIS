@@ -1,0 +1,31 @@
+# hybridMANTIS simulation input parameters
+#
+#	@file:		hybridMANTIS_input.in
+#	@author:	Diksha Sharma (Diksha.Sharma@fda.hhs.gov)
+#	@date:		Apr 9, 2012
+#
+
+100000     # number of x-ray histories to be simulated (N)
+0          # min. number of optical photons that can be detected
+1400       # max. (N*yield) number of optical photons that can be detected
+140        # number of bins for storing pulse height specturm (maximum value=1000)
+909.0      # x-dimension of detector (in microns)
+909.0      # y-dimension of detector (in microns)
+150.0      # thickness of detector (in microns)
+5.1        # column radius (in microns)
+1.8        # refractive index of column material
+1.0        # refractive index of inter-columnar material
+0.1        # top surface absorption fraction
+1e-4       # bulk absorption coefficient (in 1/microns)
+0.2        # surface roughness coefficient
+1.0        # minimum distance to the next column (in microns)
+280.0      # maximum distance to the next column (in microns)
+0.0        # x lower bound of PRF image
+0.0        # y lower bound of PRF image
+909.0      # x upper bound of PRF image
+909.0      # y upper bound of PRF image
+0.055      # light yield (/eV)
+9          # pixel pitch (in microns)  (max. pixels allowed in PRF image are 501x501. calculate this by {upper bound - lower bound}/pixel pitch.)
+0.25       # non-ideal sensor reflectivity
+1          # flag for running in the GPU (1) or only in the CPU (0)
+1          # machine number

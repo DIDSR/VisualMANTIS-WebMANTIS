@@ -1,0 +1,343 @@
+# >>>> INPUT FILE FOR penEasy >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#
+# CASE DESCRIPTION:
+#   penEasy with No EM fields!
+#
+# LAST UPDATE:
+#   2008-04-19 by JS
+#   2011-06-06 by DS
+
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# INSTRUCTIONS FOR SECTION CONFIG
+#
+# * The simulation will be finished when ANY of the following conditions is
+#   fulfilled: i) the requested number of histories has been reached; ii) the
+#   alloted time has been exhausted; or iii) ALL the requested relative
+#   uncertainties have been reached.
+#
+# * Allotted time is interpreted as real time if it is a positive number.
+#   Otherwise, CPU (i.e. user) time is assumed.
+#
+# * Similarly, the update period is interpreted as real time if it is positive;
+#   otherwise it is the number of histories between updates. See the README file
+#   for a description of the tasks performed during each update. Note that the
+#   real time between updates cannot be larger than 50000 s.
+#
+# * Setting both random seeds equal to zero is an indication that they must be read
+#   from an external file. The name of the file containing the seeds is read from
+#   an additional input line that must be introduced after that of 'RANDOM SEEDS'.
+#   This new line must have the following format:
+#(rngseed.in                    ) RANDOM SEEDS FILE NAME (*** 30 characters ***)
+#   In this example, the file 'rngseed.in' is opened and read. The two seeds must
+#   be on the first line of rngseed.in, separated by one or more blanks. This
+#   feature is useful when using parallel computing (see README file).
+#
+[SECTION CONFIG v.2006-08-01]
+  1.00000e5                            NO. OF HISTORIES (<1e15)
+  5.0e15                           ALLOTTED TIME (s) (+ FOR REAL TIME; - FOR CPU TIME)
+  50000.0                          UPDATE INTERVAL (+ FOR REAL TIME (s) < 50000; - FOR HISTORIES)
+ 3141592   20090625                INITIAL RANDOM SEEDS
+[END OF CONFIG SECTION]
+
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# INSTRUCTIONS FOR SOURCE SECTIONS
+#
+# * Details on the features and configuration of each source are provided in their
+#   accompanying documentation (see ~/documentation/*). Notice that there must be
+#   only *one* source ON, otherwise the initialization procedure will issue an
+#   error message and stop the simulation.
+#
+[SECTION SOURCE BOX ISOTROPIC GAUSS SPECTRUM v.2006-08-01]
+(ON )                            STATUS (ON or OFF)
+ 2                               PARTICLE TYPE (1=electron, 2=photon, 3=positron)
+ Energy(eV)  Probability         ENERGY SPECTRUM
+ 25.0e3       1.0
+ 25.0e3       0.000000010        # !! Force PENELOPE to create tables for high energy particles too
+  1.e6        -1
+ 4.545e-2  4.545e-2  1.000e0     CENTER COORDINATES OF THE BOX ENCLOSURE (cm)
+ 3.000e-3  3.000e-3  0.000e0       BOX SIDES (cm)
+ 0.000e0  0.000e0  0.000e0       EULER ANGLES [Rz,Ry,Rz](deg) TO ROTATE BOX
+ 0                               MATERIAL (0=DO NOT CARE)
+ 0.000e0  0.000e0  -1.000         DIRECTION VECTOR, NO NEED TO NORMALIZE
+ 0.000e0                         ANGLE OF SEMIAPERTURE [0,180] (deg)
+[END OF BIGS SECTION]
+
+[SECTION SOURCE PHASE SPACE FILE v.2008-06-01]
+(OFF)                            STATUS (ON or OFF)
+ 0                               PSF FORMAT (0=STANDARD penEasy ASCII; 1=IAEA BINARY)
+(particles.psf                 ) PSF FILENAME (30 characters), REMOVE EXTENSION IF PSF FORMAT=1
+ 1                               SPLITTING FACTOR
+ 0.0  0.0  0.0                   EULER ANGLES [Rz,Ry,Rz](deg) TO ROTATE POSITION AND DIRECTION
+= 0.0  0.0  0.0                   CARTESIAN COMPONENTS [DX,DY,DZ](cm) OF POSITION SHIFT
+ 1                               VALIDATE BEFORE SIMULATION (1=YES, MAY TAKE A WHILE; 0=NO)
+ 0.000e0                         MAX PSF ENERGY (eV) (UNUSED IF VALIDATE=1; ADD 1023 keV FOR e+)
+[END OF SPSF SECTION]
+
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# INSTRUCTIONS FOR SECTION PENGEOM+PENVOX
+#
+# * Three possible geometry models can be simulated: (i) quadrics; (ii) voxels
+#   (i.e. homogeneous parallelepipedic volume elements); and (iii) a mixture of
+#   quadrics and voxels.
+#
+# * For case (i), provide a file name in the QUADRICS field and leave the VOXELS
+#   field empty. The syntax of the quadrics file is described in the PENELOPE
+#   documentation.
+#
+# * For case (ii), do the reverse, leaving the QUADRICS field empty. The format
+#   of the voxels file is described in the file sample.vox included in this
+#   distribution. The voxels bounding box (i.e. the parallelepiped that delimits
+#   the set of voxels) is implicitly assumed to lie in the first octant of the
+#   simulation reference frame, that is, in the region {x>0,y>0,z>0}, with one
+#   of its corners located at the origin of coordinates. Its faces are therefore
+#   parallel to either the xy, xz or yz planes.
+#
+# * For case (iii), provide both file names. In this case quadric bodies are
+#   assumed to remove the voxels located "underneath", except for one body
+#   that we shall call the voxels body. The voxels body can be thought of as a
+#   "hole" in the quadric geometry through which voxels can be seen. The voxels
+#   body is identified by the user by giving the material of which it is made (in
+#   the field QUADRIC MATERIAL below). This material should not be present in any
+#   other body of the whole quadric geometry. Note also that the voxels body
+#   should not exceed in extension that of the parallelepipedic region where
+#   voxels are located, as defined in the voxels file.
+#
+# * For quadric+voxel geometries, each voxel mass is evaluated during the
+#   initialization by integrating density over voxel volume. The number of threads
+#   that are cast (along the z axis) through each voxel to perform this
+#   integration is determined by the value input in the GRANULARITY field. The
+#   actual number of threads equals the granularity squared. A reasonable value
+#   is 3; use larger values for spiky quadric geometries.
+#
+# * Note that vacuum bodies are NOT allowed inside the voxel region. This is to
+#   prevent possible miscalculations of a voxels mass.
+#
+[SECTION PENGEOM+PENVOX v.2008-06-01]
+(CsI.geo                       ) QUADRICS FILE NAME (30 characters), LEAVE EMPTY IF NONE
+(                              ) VOXELS FILE NAME (30 characters), LEAVE EMPTY IF NONE
+ 1                               TRANSPARENT QUADRIC MAT (RELEVANT ONLY IF QUAD&VOX)
+ 3                               GRANULARITY TO SCAN VOXELS (RELEVANT ONLY IF QUAD&VOX)
+[END OF GEO SECTION]
+
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# INSTRUCTIONS FOR SECTION PENGEOM+PENVOX
+#
+# * The MATERIAL FILE must be a valid PENELOPE material file.
+#
+# * If the number of MATERIALS EXPECTED is set to zero, then this numbers is set
+#   automatically to the maximum material index found in the geometry files. The
+#   simulation parameters are then set, for all materials, as follows:
+#     - Eabs for electrons and positrons are both set to 1% of the initial source
+#       energy (E), with the limiting values of 50 eV (min) and 1 MeV (max).
+#     - Eabs for photons is set to 0.1% E with the limiting values of 50 eV and
+#       1 MeV.
+#     - C1 and C2 are both set to 0.1.
+#     - WCC is set to min(Eabs(e-),1% E)
+#     - WCR is set to min(Eabs(phot),0.1% E).
+#     - DSMAX is set to infinity.
+#   When this option is selected, the table header (MAT,EABS ... etc) and the
+#   succeeding lines with the values of these parameters must all be removed.
+#
+#
+#
+[SECTION PENELOPE v.2008-02-20]
+(CsI.mat                        ) MATERIAL FILE NAME (*** 30 characters ***)
+ 1                               No. OF MATERIALS EXPECTED IN MAT FILE (0 for AUTO)
+ MAT  EABS(e-)  EABS(ph)  EABS(e+)  C1     C2     WCC       WCR       DSMAX   DESCRIPTION
+ 1    50.0e0    50.0e0    50.00e0   0.01   0.01   50.00e0   50.00e0   0.020    CsI
+[END OF PEN SECTION]
+
+
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# INSTRUCTIONS FOR THE TALLY SECTIONS
+#
+# * Details on the features and configuration of each tally are provided in their
+#   accompanying documentation (see ~/documentation/*.txt).
+#
+# * The required RELATIVE UNCERTAINTY that is specified for each tally (except for
+#   those that do not have an associated uncertainty, e.g. a phase-space file) is
+#   used as a condition to stop the simulation. Only when the requested
+#   relative uncertainties of *all* the tallies have been attained the uncertainty
+#   condition is considered fulfilled. Recall that the simulation can also be
+#   halted because the allotted time or the number of histories requested have
+#   been reached. Setting the RELATIVE UNCERTAINTY of all tallies to zero will
+#   prevent the execution from stopping for this cause.
+#
+# * Note for advanced users: when a certain tally scores nothing (i.e. zero) the
+#   corresponding REPORT routine reports 0% uncertainty but, at the same time, it
+#   reports that the requested uncertainty has not been reached, irrespective of
+#   the value introduced in the input file. This is to prevent the simulation from
+#   being stopped by a deceptive impression of accuracy in highly inefficient
+#   simulations, where the score and its standard deviation after a short period
+#   of time can be null.
+#
+[SECTION TALLY VOXEL DOSE v.2008-06-01]
+(OFF)                            STATUS (ON or OFF)
+ 0  0                            ROI MIN,MAX X-INDEX (0 0 FOR ALL VOXELS)
+ 0  0                            ROI MIN,MAX Y-INDEX (0 0 FOR ALL VOXELS)
+ 0  0                            ROI MIN,MAX Z-INDEX (0 0 FOR ALL VOXELS)
+ 0                               INCLUDE QUAD. CONTRIBUTION TO VOXEL MASS & DOSE (1=YES,0=NO)
+ 0                               PRINT VOXELS MASS IN REPORT (1=YES,0=NO)
+ 0                               PRINT COORDINATES IN REPORT (1=YES,0=NO)
+ 0.0                             RELATIVE UNCERTAINTY (%) REQUESTED
+[END OF VDD SECTION]
+
+[SECTION TALLY SPATIAL DOSE DISTRIB v.2006-08-01]
+(OFF)                            STATUS (ON or OFF)
+ 0.0  0.0     0                  XMIN,XMAX(cm),NXBIN (0 for DX=infty)
+ 0.0  0.0     0                  YMIN,YMAX(cm),NYBIN (0 for DY=infty)
+-0.005 0.105  800                ZMIN,ZMAX(cm),NZBIN (0 for DZ=infty)
+ 1                               PRINT COORDINATES IN REPORT (1=YES,0=NO)
+ 0.60                            RELATIVE UNCERTAINTY (%) REQUESTED
+[END OF SDD SECTION]
+
+[SECTION TALLY CYLINDRICAL DOSE DISTRIB v.2006-08-01]
+(OFF)                            STATUS (ON or OFF)
+ 0.0 0.00001  500                RMIN,RMAX(cm),NRBIN (>0)
+ 0.0 0.10     100                ZMIN,ZMAX(cm),NZBIN (0 for DZ=infty)
+ 1                               PRINT COORDINATES IN REPORT (1=YES,0=NO)
+ 0.60                            RELATIVE UNCERTAINTY (%) REQUESTED
+[END OF CDD SECTION]
+
+[SECTION TALLY SPHERICAL DOSE DISTRIB v.2006-08-01]
+(OFF)                            STATUS (ON or OFF)
+ 0.0 1.0   50                    RMIN,RMAX(cm),NRBIN (>0)
+ 1                               PRINT COORDINATES IN REPORT (1=YES,0=NO)
+ 0.0                             RELATIVE UNCERTAINTY (%) REQUESTED
+[END OF SPD SECTION]
+
+[SECTION TALLY ENERGY DEPOSITION PULSE SPECTRUM v.2006-08-01]
+(OFF)                            STATUS (ON or OFF)
+ 1                               DETECTION MATERIAL
+ 0.0  1.0e9  100                 EMIN,EMAX(eV), No. OF E BINS
+ 0.0                             RELATIVE UNCERTAINTY (%) REQUESTED
+[END OF EPS SECTION]
+
+[SECTION TALLY FLUENCE TRACK LENGTH v.2006-08-01]
+(OFF)                            STATUS (ON or OFF)
+ 1                               DETECTION MATERIAL
+ 1.0e2  1.0e9  70                EMIN,EMAX(eV), No. OF E BINS (LOG SCALE)
+ 1.0e30                          RELATIVE UNCERTAINTY (%) REQUESTED
+[END OF FTL SECTION]
+
+[SECTION TALLY PHASE SPACE FILE v.2008-06-01]
+(OFF)                            STATUS (ON or OFF)
+ 0                               PSF FORMAT (0=STANDARD penEasy ASCII; 1=IAEA BINARY)
+ 1                               DETECTION MATERIAL (NOT EQUAL 0)
+(output.psf                    ) PSF FILENAME (30 characters), REMOVE EXTENSION IF FORMAT=1
+[END OF PSF SECTION]
+
+[SECTION TALLY PARTICLE CURRENT SPECTRUM v.2006-08-01]
+(OFF)                            STATUS (ON or OFF)
+ 1                               DETECTION MATERIAL
+ 0.0 1.0e9   100                 EMIN,EMAX(eV), No. OF E BINS
+ 0.0                             RELATIVE UNCERTAINTY (%) REQUESTED
+[END OF PCS SECTION]
+
+[SECTION TALLY PARTICLE TRACK STRUCTURE v.2008-05-15]
+(OFF)                            STATUS (ON or OFF)
+ 100                             NUMBER OF HISTORIES TO DISPLAY (~100 RECOMMENDED)
+[END OF PTS SECTION]
+
+
+[SECTION TALLY ENERGY DEPOSITION EVENTS v.2010-06-03]
+(ON )                            STATUS (ON or OFF)
+ 1                               DETECTOR SENSITIVE MATERIAL
+CsI_deposition_events.dat             NAME OUTPUT FILE
+[END OF EDE SECTION]
+
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# INSTRUCTIONS FOR THE INTERACTION FORCING SECTION
+#
+# * Interaction forcing is a variance reduction technique. It is described
+#   in detail in the PENELOPE manual. Use it judiciously.
+#
+# * Interaction forcing will only be applied if the particle's statistical
+#   weight (variable WGHT in common /TRACK/ of PENELOPE) falls in the
+#   specified interval [WMIN,WMAX], also known as the WEIGHT WINDOW.
+#   Otherwise, analog simulation is employed.
+#
+# * It is advisable to define a prudent weight window [WMIN,WMAX], such as
+#   [0.01,100], to prevent the occurrence of extreme statistical weights,
+#   which may give rise to low simulation efficiencies and numerical precision
+#   problems. Notice that a weight window such as [1.0,1.0] prevents the
+#   repetitive application of interaction forcing to secondary particles
+#   already generated in forced events.
+#
+# * One line must be entered for each combination of material and interaction
+#   type for which interaction forcing is to be applied. The contents of
+#   this line is:
+#   - Material number (MAT).
+#   - Particle type (KPAR). KPAR=1,2,3 is for electrons, photons and positrons,
+#     respectively.
+#   - Type of interaction (ICOL), see list of values below.
+#     By setting ICOL=0 all interactions are forced by the same amount.
+#   - Forcing factor (FORCING) by which the mean free path of interactions
+#     ICOL will be divided when particles of type KPAR are in material MAT.
+#
+# * PENELOPE labels the interaction mechanisms in the following way:
+#      Electrons (KPAR=1) and positrons (KPAR=3):
+#         ICOL = 1 artificial soft event (hinge).
+#              = 2 hard elastic collision.
+#              = 3 hard inelastic collision.
+#              = 4 hard bremsstrahlung emission.
+#              = 5 inner-shell ionization.
+#              = 6 positron annihilation.
+#              = 7 delta interaction.
+#              = 8 'auxiliary' fictitious interactions.
+#      Photons (KPAR=2):
+#         ICOL = 1 coherent (Rayleigh) scattering.
+#              = 2 incoherent (Compton) scattering.
+#              = 3 photoelectric absorption.
+#              = 4 electron-positron pair production.
+#              = 7 delta interaction.
+#              = 8 'auxiliary' fictitious interactions.
+#
+# * The last entered line (before END of SECTION) must have MAT=0, which
+#   signals the end of the list.
+#
+# * Beware of the fact that the use of interaction forcing may bias tallies
+#   based on pulse height spectra.
+#
+[SECTION INTERACTION FORCING v.2008-05-15]
+(OFF)                            STATUS (ON or OFF)
+ 1.0  1.0                        WEIGHT WINDOW [WMIN,WMAX]
+ MAT  KPAR  ICOL  FORCING  (SET MAT=0 TO END LIST)
+ 0    0     0     1.0
+[END OF VRIF SECTION]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# >>>> END OF FILE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

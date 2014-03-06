@@ -25,4 +25,4 @@ Package Contents
 	
 	* VisualMANTIS_WebMANTIS_manual.pdf : this provides detailed information on downloading and compiling both VisualMANTIS and WebMANTIS
 	
-	* README.MD : provides information on  various parts of the package contents
+	* README.md : provides information on  various parts of the package contents

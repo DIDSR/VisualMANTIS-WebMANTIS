@@ -12,7 +12,7 @@
 # and any modified versions bear some notice that they have been modified.
 #
 #	@file    README.txt
-#   @author  Han Dong, Diksha Sharma (Diksha.Sharma@fda.hhs.gov)
+#   @author  Han Dong, Diksha Sharma (Diksha.Sharma@fda.hhs.gov), Aldo Badano (Aldo.Badano@fda.hhs.gov)
 #   @date    2/27/2014
 #
 ##########################################################################################################################################################
@@ -25,7 +25,7 @@ INTRODUCTION
 WebMANTIS is a graphical interface that uses VisualMANTIS and hybridMANTIS (a Monte Carlo tool for modeling x-ray detectors with columnar scintillators) [1] to display simulation information and visualizations in a web browser. WebMANTIS borrows heavily from utility files and sample codes that were provided by WebGL, more information about WebGL can be found here (http://threejs.org/).
 
 The source code is free and open software in the public domain, as explained in the Disclaimer section above. 
-The software distribution website is: https://github.com/diamfda. 
+The software distribution website is: https://github.com/diamfda/VisualMANTIS-WebMANTIS. 
 
 
 *******************************
@@ -34,7 +34,7 @@ CODE COMPILATION AND EXECUTION
 
 WebMANTIS has been tested only on the Ubuntu operating system, it requires the installation of the Ubuntu LAMP (ApacheMySQLPHP) package in order to set up the local webserver. The code doesn't need to be compiled since it is built using scripting languages, after Ubuntu LAMP has been set up this code can then copied into the webserver directory and it will be accessible via the web.
 	
-Compilation steps and libraries required are listed in detail in 'MANUAL_WebMANTIS.pdf'.
+Compilation steps and libraries required are listed in detail in 'VisualMANTIS_WebMANTIS_manual.pdf'.
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

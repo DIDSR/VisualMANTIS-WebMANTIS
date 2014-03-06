@@ -12,6 +12,7 @@ To run visualMANTIS:
 	./visualmantisGUI
 	
 Compilation steps are listed in detail in 'MANUAL_visualMANTIS.pdf'.
+
 NOTE: PENELOPE 2006 SOURCE CODE FILES PENELOPE.F AND PENGEOM.F ARE NOT DISTRIBUTED WITH hybridMANTIS PACKAGE, BUT ARE NEEDED FOR COMPILING. IF THESE FILES ARE NEEDED, PLEASE CONTACT DIKSHA SHARMA AT Diksha.Sharma(at)fda.hhs.gov.	
 
 hybridMANTIS v1.0 PACKAGE CONTENTS
@@ -25,8 +26,9 @@ hybridMANTIS v1.0 PACKAGE CONTENTS
 	
 	* visualMANTIS_ver1_0.x: 	visualMANTIS v1.0 executable - this only handles retrieving visualization data from CUDA kernels
 	
-	* compile_visualmantis_ver1_0.sh:		Script for compiling visualMANTIS. The user will require two more files PENELOPE.F, PENGEOM.F to compile this package successfully. These files are not distributed with this package. If these files are needed, please contact Diksha Sharma at Diksha.Sharma (at) fda.hhs.gov.
+	* compile_visualmantis_ver1_0.sh:		Script for compiling visualMANTIS. The user will require two more files PENELOPE.F, PENGEOM.F to compile this package successfully. 
+	These files are not distributed with this package. If these files are needed, please contact Diksha Sharma at Diksha.Sharma (at) fda.hhs.gov.
 	
 	* example/ : contains sample input and output files
 	
-	* README.txt:			this file.	
+	* README.md:			this file.	
